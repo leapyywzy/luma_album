@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Luma Album 需要访问照片图库，以便浏览和整理你的照片。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Luma Album 需要权限，以便将编辑后的照片保存到图库。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -43,25 +47,10 @@
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
 					<string>Main</string>
-				
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Luma Album 需要访问照片图库，以便浏览和整理你的照片。</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Luma Album 需要权限，以便将编辑后的照片保存到图库。</string>
-</dict>
+				</dict>
 			</array>
-		
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Luma Album 需要访问照片图库，以便浏览和整理你的照片。</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Luma Album 需要权限，以便将编辑后的照片保存到图库。</string>
-</dict>
-	
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Luma Album 需要访问照片图库，以便浏览和整理你的照片。</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Luma Album 需要权限，以便将编辑后的照片保存到图库。</string>
-</dict>
+		</dict>
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -81,10 +70,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Luma Album 需要访问照片图库，以便浏览和整理你的照片。</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Luma Album 需要权限，以便将编辑后的照片保存到图库。</string>
 </dict>
 </plist>
