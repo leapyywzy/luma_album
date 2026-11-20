@@ -1,0 +1,89 @@
+name: Build iOS and Windows
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    name: Build iOS (unsigned)
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.50.0'
+          cache: true
+
+      - name: Show toolchain
+        run: |
+          flutter --version
+          xcodebuild -version
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+
+      - name: Package iOS app
+        run: |
+          test -d build/ios/iphoneos/Runner.app
+          ditto -c -k --sequesterRsrc --keepParent build/ios/iphoneos/Runner.app LumaAlbum-iOS-unsigned.zip
+
+      - name: Upload iOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LumaAlbum-iOS-unsigned
+          path: LumaAlbum-iOS-unsigned.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  build-windows:
+    name: Build Windows x64
+    runs-on: windows-2025
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.50.0'
+          cache: true
+
+      - name: Show toolchain
+        run: flutter --version
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows --release
+
+      - name: Package Windows application
+        shell: pwsh
+        run: |
+          $releaseDir = "build/windows/x64/runner/Release"
+          if (!(Test-Path "$releaseDir/luma_album.exe")) {
+            throw "Expected executable was not found: $releaseDir/luma_album.exe"
+          }
+          Compress-Archive -Path "$releaseDir/*" -DestinationPath "LumaAlbum-Windows-x64.zip" -Force
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LumaAlbum-Windows-x64
+          path: LumaAlbum-Windows-x64.zip
+          if-no-files-found: error
+          retention-days: 14
